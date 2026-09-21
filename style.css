@@ -1,0 +1,240 @@
+:root {
+  --bg: #000;
+  --panel: #2a2a2a;
+  --gray-border: #3a3a3a;
+  --text: #fff;
+  --muted: #9a9a9a;
+  --gold: #ffd54a;
+  --gold-dark: #b8860b;
+  --red: #c0392b;
+  --green: #1f7a43;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  background: #000;
+  color: var(--text);
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.phone {
+  width: 100%;
+  max-width: 380px;
+  min-height: 700px;
+  background: #000;
+  border: 1px solid var(--gray-border);
+  border-radius: 28px;
+  padding: 28px 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---- header ---- */
+.game-header { text-align: center; }
+.game-header h1 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+.game-header .sub {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 2px;
+  margin-top: 4px;
+}
+
+/* ---- dice panel ---- */
+.panel {
+  background: var(--panel);
+  border-radius: 16px;
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.roll { font-size: 30px; font-weight: 800; }
+.dice-emoji { font-size: 44px; letter-spacing: 6px; }
+.dice-emoji.rolling { animation: shake .35s infinite; }
+@keyframes shake {
+  0% { transform: rotate(-12deg) translateY(-2px); }
+  50% { transform: rotate(12deg) translateY(2px); }
+  100% { transform: rotate(-12deg) translateY(-2px); }
+}
+.point { font-size: 18px; font-weight: 700; color: var(--gold); }
+.point.flash { animation: pointflash .6s ease 2; }
+@keyframes pointflash {
+  0% { transform: scale(1); color: var(--gold); }
+  50% { transform: scale(1.35); color: #fff; }
+  100% { transform: scale(1); color: var(--gold); }
+}
+
+/* ---- phil line ---- */
+.phil-line {
+  font-size: 15px;
+  line-height: 1.4;
+  text-align: center;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- cash ---- */
+.cash {
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.pockets-note {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* cash change toast */
+.cash-toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 900;
+  font-size: 16px;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity .4s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,.6);
+}
+.cash-toast.up { background: #1f7a43; color: #d8ffe6; border: 2px solid #3fce7a; }
+.cash-toast.down { background: #a3322a; color: #ffd9d6; border: 2px solid #e06054; }
+.cash-toast.hide { opacity: 0; }
+
+/* ---- bet ---- */
+.bet {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.bet-label { font-size: 15px; color: var(--muted); }
+.bet-label b { color: var(--text); }
+
+#betSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 4px;
+  background: linear-gradient(to right, var(--gold-dark), var(--gold));
+  outline: none;
+}
+#betSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff, var(--gold) 60%);
+  border: 2px solid var(--gold-dark);
+  cursor: pointer;
+  box-shadow: 0 2px 5px #00000088;
+}
+#betSlider::-moz-range-thumb {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff, var(--gold) 60%);
+  border: 2px solid var(--gold-dark);
+  cursor: pointer;
+  box-shadow: 0 2px 5px #00000088;
+}
+
+/* ---- shoot button ---- */
+.shoot-btn {
+  width: 100%;
+  height: 54px;
+  background: var(--panel);
+  border: 1px solid var(--gray-border);
+  color: var(--text);
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.shoot-btn:active { background: #3a3a3a; }
+.shoot-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ---- footer ---- */
+.game-footer {
+  margin-top: auto;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* ---- grab overlay ---- */
+.grab-overlay {
+  position: fixed; inset: 0;
+  background: #000000cc;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 20; padding: 20px;
+  backdrop-filter: blur(2px);
+}
+.grab-card {
+  background: var(--green);
+  border: 3px solid var(--gold);
+  border-radius: 18px;
+  padding: 26px 24px;
+  text-align: center;
+  max-width: 320px;
+  box-shadow: 0 12px 40px #000;
+  animation: pop .2s ease;
+}
+@keyframes pop { from { transform: scale(.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.grab-card .big { font-size: 40px; margin-bottom: 6px; }
+.grab-card h2 { font-size: 20px; margin-bottom: 4px; }
+.grab-card .go-sub { color: #dfe; font-weight: 700; margin: 6px 0 10px; font-size: 14px; }
+.grab-card.gameover h2 { color: #fff; }
+.grab-win { font-size: 30px; font-weight: 900; color: var(--gold); margin: 8px 0; }
+.grab-timer { font-size: 40px; font-weight: 900; color: #fff; margin: 10px 0; }
+.grab-timer.low { color: #ff6b6b; animation: blink .4s infinite; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+.grab-btn {
+  width: 100%; height: 54px;
+  font-size: 20px; font-weight: 900;
+  background: linear-gradient(var(--gold), var(--gold-dark));
+  border: none; border-radius: 12px; cursor: pointer;
+  box-shadow: 0 5px 0 #00000066;
+  color: #2a1c00;
+  margin-top: 8px;
+}
+.grab-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #00000066; }
+
+/* ---- snatch flash ---- */
+.snatch {
+  position: fixed; inset: 0; z-index: 30;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+.snatch .card {
+  background: var(--red); color: #fff;
+  border: 3px solid #000; border-radius: 14px;
+  padding: 20px 26px; font-size: 26px; font-weight: 900;
+  animation: pop .18s ease;
+  text-align: center;
+}
+
+.hidden { display: none !important; }
